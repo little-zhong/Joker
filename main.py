@@ -201,6 +201,7 @@ async def work(user_jwt):
                     last_pow_id = push_info["result"][0]["pow_id"]
                     rewards = push_info["result"][0]["rewards"]
                     logger.success(f"Pushed pow_id: {last_pow_id} / Reward: {rewards}")  # fmt: skip
+                    first_capsolver = await joker.capsolver()
                 # get accounts and version
                 accounts = await joker.accounts()
                 point = accounts.json()["result"]["point"]
