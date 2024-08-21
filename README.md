@@ -22,7 +22,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. Rust Environment (Optional)
+### 2. Rust Environment
 If you want to compile the Rust hashing function yourself, follow these steps:
 
 1. **Install Rust and necessary dependencies:**
