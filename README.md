@@ -38,6 +38,7 @@ source $HOME/.cargo/env
 cd find_hash
 cargo build --release
 cp ./target/release/find_hash ../find
+cd ..
 ```
 
 ### 3.Initialize Account
