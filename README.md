@@ -37,13 +37,8 @@ source $HOME/.cargo/env
 ```sh
 cd find_hash
 cargo build --release
+cp ./target/release/find_hash ../find
 ```
-
-3. **Run the compiled program:**
-```sh
-./target/release/find_hash <mission_id> <require> <cores>
-```
-- Note: Place the compiled program in the same directory as main.py
 
 ### 3.Initialize Account
 
@@ -64,7 +59,7 @@ cp .env.example .env
 ```js
 console.log(localStorage.BLOCK_JOKER_ACCESS_TOKEN)
 ```
-- Copy the token (without quotes) and save it in an auth.txt file in the same directory, with one token per line.
+- Copy the token (without quotes) and save it in an `auth.txt` file in the same directory, with one token per line.
 
 ## Usage
 
@@ -81,7 +76,7 @@ python main.py
 If using the Rust hasher, ensure the compiled find_hash binary is in the same directory as main.py. Use the following command to run it:
 
 ```sh
-./find_hash <mission_id> <require> <cores>
+./find <mission_id> <require> <cores>
 ```
 
 ## Contribution

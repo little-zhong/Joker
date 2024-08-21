@@ -140,6 +140,7 @@ class Joker:
 
 
 async def work(user_jwt):
+    user_jwt.replace('"', "")
     async with AsyncSession(
         impersonate="chrome124",
         headers={
