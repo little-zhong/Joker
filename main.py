@@ -78,14 +78,12 @@ class Joker:
             "GET", "https://blockjoker.org/api/v2/version", (200,)
         )
 
-    async def missions(self):
+    async def missions(self, cf_response=""):
         return await self._request(
             "POST",
             "https://blockjoker.org/api/v2/missions",
             (200,),
-            json={
-                "cf_response": await self.capsolver(),
-            },
+            json={"cf_response": cf_response},
         )
 
     async def pow_records(self):
@@ -129,9 +127,10 @@ async def work(user_jwt):
         timeout=60,
     ) as session:
         joker = Joker(session)
-
         last_pow_id = None
+        first_capsolver = await joker.capsolver()
         pow_records = await joker.pow_records()
+
         if not pow_records.json()["result"]:
             logger.warning(f"Failed to get pow_records: {pow_records.text}")
         else:
@@ -140,7 +139,7 @@ async def work(user_jwt):
         while True:
             try:
                 # get mission
-                start_info = await joker.missions()
+                start_info = await joker.missions(first_capsolver)
                 result = start_info.json().get("result")
                 if not result:
                     logger.warning(f"Failed to get mission: {start_info.text}")
