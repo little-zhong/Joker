@@ -209,6 +209,9 @@ async def work(user_jwt):
                 version = await joker.version()
             except Exception as e:
                 logger.error(e)
+            finally:
+                # Without delay, it would be too fast!
+                await asyncio.sleep(1)
 
 
 async def main():
