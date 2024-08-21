@@ -93,6 +93,9 @@ class Joker:
             if response.status_code == 521:
                 logger.error("Server Down")
                 exit(0)
+            if response.status_code == 422:
+                await self.capsolver()
+                raise Exception(f"status_code: {response.status_code} {response.text}")
             raise Exception(f"status_code: {response.status_code} {response.text}")
         if "cloudflare" in response.text:
             raise Exception(f"cloudflare: {response.text}")
