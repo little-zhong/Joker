@@ -1,10 +1,13 @@
 import os
 import time
 import asyncio
+import functools
 import subprocess
 from logger import logger
 from calc import generate
 from dotenv import load_dotenv
+from typing import Callable, Type, Any
+
 from curl_cffi.requests import AsyncSession
 
 load_dotenv()
@@ -12,6 +15,32 @@ load_dotenv()
 api_key = os.getenv("CAPSOLVER_API_KEY")
 site_key = "0x4AAAAAAAhcU20JhZDJJSS_"
 site_url = "https://blockjoker.org/home"
+
+
+def retry(
+    max_retries: int = 3,
+    delay: int = 2,
+    exceptions: tuple[Type[Exception]] = (Exception,),
+) -> Callable:
+    def decorator(func: Callable) -> Callable:
+        @functools.wraps(func)
+        async def wrapper(*args: Any, **kwargs: Any) -> Any:
+            retries = 0
+            while retries < max_retries:
+                try:
+                    return await func(*args, **kwargs)
+                except exceptions as e:
+                    retries += 1
+                    if retries < max_retries:
+                        logger.warning(f"Retry {retries}/{max_retries} for {func.__name__} due to {e}. Retrying in {delay} seconds...")  # fmt: skip
+                        await asyncio.sleep(delay)
+                    else:
+                        logger.error(f"Failed after {retries} retries.")
+                        raise
+
+        return wrapper
+
+    return decorator
 
 
 class Joker:
@@ -80,6 +109,7 @@ class Joker:
             "GET", "https://blockjoker.org/api/v2/version", (200,)
         )
 
+    @retry()
     async def missions(self, cf_response=""):
         return await self._request(
             "POST",
@@ -93,6 +123,7 @@ class Joker:
             "GET", "https://blockjoker.org/api/v2/missions/pow-records", (200,)
         )
 
+    @retry()
     async def nonce(self, nonce, pow_id=None):
         json_data = {"nonce": nonce}
         if pow_id:
