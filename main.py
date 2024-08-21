@@ -200,10 +200,12 @@ async def work(user_jwt):
                 else:
                     # system rewards every 5 minutes, and change pow_id
                     last_pow_id = push_info["result"][0]["pow_id"]
-                    logger.success(f"Pushed nonce: {nonce} / Reward: {push_info['result'][0]}")  # fmt: skip
+                    rewards = push_info["result"][0]["rewards"]
+                    logger.success(f"Pushed nonce: {nonce} / Reward: {rewards}")  # fmt: skip
                 # get accounts and version
                 accounts = await joker.accounts()
-                logger.success(f"Accounts: {accounts.text}")
+                point = accounts.json()["result"]["point"]
+                logger.success(f"Current point: {point}")
                 version = await joker.version()
             except Exception as e:
                 logger.error(e)
