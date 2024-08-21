@@ -179,6 +179,10 @@ async def work(user_jwt):
                 payload, require = result["payload"], result["require"]
                 logger.info(f"Received mission: {payload} / {require}")
 
+                if require == "0000":
+                    logger.warning("continue")
+                    continue
+
                 # generate nonce and hash
                 # nonce, hash = generate(payload, require)
                 start_time = time.time()
