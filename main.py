@@ -4,7 +4,6 @@ import asyncio
 import functools
 import subprocess
 from logger import logger
-from calc import generate
 from dotenv import load_dotenv
 from typing import Callable, Type, Any
 
