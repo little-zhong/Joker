@@ -1,0 +1,7 @@
+.venv
+test.py
+logs/*
+__pycache__
+auth.txt
+.env
+target

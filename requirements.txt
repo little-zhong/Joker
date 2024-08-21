@@ -1,0 +1,8 @@
+# requirements.txt
+
+certifi==2024.7.4
+cffi==1.17.0
+curl_cffi==0.7.1
+loguru==0.7.2
+pycparser==2.22
+python-dotenv==1.0.1
