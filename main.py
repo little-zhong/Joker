@@ -201,7 +201,7 @@ async def work(user_jwt):
                     # system rewards every 5 minutes, and change pow_id
                     last_pow_id = push_info["result"][0]["pow_id"]
                     rewards = push_info["result"][0]["rewards"]
-                    logger.success(f"Pushed nonce: {nonce} / Reward: {rewards}")  # fmt: skip
+                    logger.success(f"Pushed pow_id: {last_pow_id} / Reward: {rewards}")  # fmt: skip
                 # get accounts and version
                 accounts = await joker.accounts()
                 point = accounts.json()["result"]["point"]
