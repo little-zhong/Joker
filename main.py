@@ -179,7 +179,7 @@ async def work(user_jwt):
                 payload, require = result["payload"], result["require"]
                 logger.info(f"Received mission: {payload} / {require}")
 
-                if require == "0000":
+                if require != "00000":
                     logger.warning("continue")
                     continue
 
