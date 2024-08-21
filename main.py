@@ -58,6 +58,8 @@ class Joker:
             **kwargs,
         )
         if response.status_code not in status_code:
+            if response.status_code == 502:
+                raise Exception("Bad Gateway")
             if response.status_code == 504:
                 raise Exception("Gateway Timeout")
             if response.status_code == 521:
