@@ -84,23 +84,6 @@ If using the Rust hasher, ensure the compiled find_hash binary is in the same di
 ./find_hash <mission_id> <require> <cores>
 ```
 
-## Notes
-
-### API Request Optimization
-
-After testing, it's possible to omit the "cf_response" field in the missions function:
-
-```python
-async def missions(self):
-    return await self._request(
-        "POST",
-        "https://blockjoker.org/api/v2/missions",
-        (200,),
-        json={},
-    )
-```
-This change allows you to submit missions without requiring a verification code.
-
 ## Contribution
 
 Feel free to contribute to this project by submitting issues or pull requests. Your contributions are welcome!
