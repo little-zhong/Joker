@@ -91,5 +91,3 @@ Feel free to contribute to this project by submitting issues or pull requests. Y
 ```csharp
 You can copy and paste this into your `README.md` file directly.
 ```
-
-![alt text](image.png)
