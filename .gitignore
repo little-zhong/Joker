@@ -5,3 +5,4 @@ __pycache__
 auth.txt
 .env
 target
+find

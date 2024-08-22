@@ -3,8 +3,6 @@ use rayon::prelude::*;
 use sha2::{Digest, Sha256};
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
-use std::thread;
-use tokio::time::Instant;
 
 pub fn generate_nonce(buffer: &mut [u8]) {
     let charset = b"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -21,8 +19,8 @@ pub fn generate_hash(data: &[u8]) -> String {
 
 pub async fn find_hash(mission_hash: &str, require: &str, cores: usize) -> (String, String) {
     let mission_hash_bytes = mission_hash.as_bytes();
-    let mut global_found = Arc::new(AtomicBool::new(false));
-    let required_len = require.len();
+    let global_found = Arc::new(AtomicBool::new(false));
+    // let required_len = require.len();
 
     let result = (0..cores)
         .into_par_iter()

@@ -95,6 +95,8 @@ class Joker:
                 exit(0)
             if response.status_code == 422:
                 await self.capsolver()
+            if response.status_code == 403:
+                raise Exception("Forbidden")
             raise Exception(f"status_code: {response.status_code} {response.text}")
         if "cloudflare" in response.text:
             raise Exception(f"cloudflare: {response.text}")
@@ -181,10 +183,6 @@ async def work(user_jwt):
                     continue
                 payload, require = result["payload"], result["require"]
                 logger.info(f"Received mission: {payload} / {require}")
-
-                if require != "00000":
-                    logger.warning("continue")
-                    continue
 
                 # generate nonce and hash
                 # nonce, hash = generate(payload, require)
