@@ -96,7 +96,8 @@ class Joker:
             if response.status_code == 422:
                 await self.capsolver()
             if response.status_code == 403:
-                raise Exception("Forbidden")
+                logger.error("Forbidden")
+                exit(0)
             raise Exception(f"status_code: {response.status_code} {response.text}")
         if "cloudflare" in response.text:
             raise Exception(f"cloudflare: {response.text}")
