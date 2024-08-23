@@ -51,7 +51,8 @@ Run the Python script to interact with the BlockJoker API:
 python main.py
 ```
 
-https://github.com/user-attachments/assets/4bfa05de-91ef-4c12-9a98-ce3b8467e1eb
+https://github.com/user-attachments/assets/facdddca-42c1-4e90-b3ad-243cb06232d6
+
 
 ### Running the Rust Hasher
 
