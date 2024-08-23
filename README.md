@@ -41,27 +41,6 @@ cp ./target/release/find_hash ../find
 cd ..
 ```
 
-### 3.Initialize Account
-
-1. **Create a .env file:**
-```sh
-cp .env.example .env
-```
-
-2. **Set up your environment variables:**
-
-- Modify CAPSOLVER_API_KEY in the .env file to your own key.
-
-3. **Retrieve and set the BlockJoker access token:**
-
-- Log in to BlockJoker.
-- Open the browser console and enter:
-
-```js
-console.log(localStorage.BLOCK_JOKER_ACCESS_TOKEN)
-```
-- Copy the token (without quotes) and save it in an `auth.txt` file in the same directory, with one token per line.
-
 ## Usage
 
 ### Running the Python Script
@@ -71,6 +50,8 @@ Run the Python script to interact with the BlockJoker API:
 ```sh
 python main.py
 ```
+
+https://github.com/user-attachments/assets/4bfa05de-91ef-4c12-9a98-ce3b8467e1eb
 
 ### Running the Rust Hasher
 

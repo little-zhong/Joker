@@ -1,3 +1,5 @@
+use core::hash;
+
 use clap::Parser;
 mod utils;
 
@@ -14,9 +16,9 @@ struct Args {
 async fn main() {
     let args = Args::parse();
 
-    let (nonce, _) =
+    let (nonce, hash) =
         utils::find_hash(&args.mission_hash, &args.require, (args.cores as u8).into()).await;
 
     println!("{}", nonce);
-    // println!("{}", hash);
+    println!("{}", hash);
 }
