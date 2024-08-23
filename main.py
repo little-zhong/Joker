@@ -93,26 +93,29 @@ xhr.send(data);
 def main():
     last_pow_id = None
     while True:
-        res = ppp.listen.wait()
+        try:
+            res = ppp.listen.wait()
 
-        if res.url == "https://blockjoker.org/api/v2/missions/pow-records":
-            authorization = ppp.local_storage()["BLOCK_JOKER_ACCESS_TOKEN"]
-            authorization = authorization.replace('"', "")
-            last_pow_id = res.response.body["result"][0]["pow_id"]
-            func_missions(authorization)
-
-        if res.url == "https://blockjoker.org/api/v2/missions/nonce":
-            nonce = res.response.body
-            if not nonce.get("result"):
-                continue
-            else:
+            if res.url == "https://blockjoker.org/api/v2/missions/pow-records":
+                authorization = ppp.local_storage()["BLOCK_JOKER_ACCESS_TOKEN"]
+                authorization = authorization.replace('"', "")
                 last_pow_id = res.response.body["result"][0]["pow_id"]
-                rewards = res.response.body["result"][0]["rewards"]
-                logger.success(f"Pushed pow_id: {last_pow_id} / Reward: {rewards}")  # fmt: skip
+                func_missions(authorization)
 
-        if res.url == "https://blockjoker.org/api/v2/missions":
-            func_nonce(authorization, res.response.body, last_pow_id)
-            func_missions(authorization)
+            if res.url == "https://blockjoker.org/api/v2/missions/nonce":
+                nonce = res.response.body
+                if not nonce.get("result"):
+                    continue
+                else:
+                    last_pow_id = res.response.body["result"][0]["pow_id"]
+                    rewards = res.response.body["result"][0]["rewards"]
+                    logger.success(f"Pushed pow_id: {last_pow_id} / Reward: {rewards}")  # fmt: skip
+
+            if res.url == "https://blockjoker.org/api/v2/missions":
+                func_nonce(authorization, res.response.body, last_pow_id)
+                func_missions(authorization)
+        except Exception as e:
+            logger.error(e)
 
 
 if __name__ == "__main__":
