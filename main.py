@@ -112,10 +112,16 @@ def main():
                     logger.success(f"Pushed pow_id: {last_pow_id} / Reward: {rewards}")  # fmt: skip
 
             if res.url == "https://blockjoker.org/api/v2/missions":
+                if res.response.status == 502:
+                    func_missions(authorization)
+                    logger.warning("502 Bad Gateway")
+                    continue
+                if res.response.status == 521:
+                    logger.warning("521 Web Server Is Down")
+                    exit(0)
                 func_nonce(authorization, res.response.body, last_pow_id)
                 func_missions(authorization)
         except Exception as e:
-            ppp.run_js("location.reload();")
             logger.error(e)
 
 
