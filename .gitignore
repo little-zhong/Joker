@@ -6,3 +6,4 @@ auth.txt
 .env
 target
 find
+session.py
