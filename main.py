@@ -115,7 +115,7 @@ def main():
                 func_nonce(authorization, res.response.body, last_pow_id)
                 func_missions(authorization)
         except Exception as e:
-            ppp.refresh()
+            ppp.run_js("location.reload();")
             logger.error(e)
 
 
